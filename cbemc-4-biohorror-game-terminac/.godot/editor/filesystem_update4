@@ -1,0 +1,7 @@
+res://Scenes/test.tscn
+res://Scenes/arduino_reader.gd
+res://addons/gdserial/README.md
+res://addons/gdserial/doc/en/GdSerial.xml
+res://Scenes/view_distance.gd
+res://Scenes/monster_rawr_rawr.gd
+res://addons/proto_controller/proto_controller.tscn
