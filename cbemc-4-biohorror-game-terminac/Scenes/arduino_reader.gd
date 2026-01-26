@@ -5,6 +5,8 @@ var serial: GdSerial
 @export var irValue: float = 1
 @export var irMax: float = 50000
 
+@export var isMotion : bool
+
 func _ready():
 	serial = GdSerial.new()
 	
@@ -16,12 +18,14 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	
-	#if(serial.is_open()):
-		#var ir = float(serial.readline().split(" ")[0].split("=")[1].split(",")[0])
+	if(serial.is_open()):
+		var ir = float(serial.readline().split(" ")[0].split(",")[0])
 		#print(ir)
-		#irValue = ir/irMax
+		irValue = ir/irMax
 		#print(irValue)
-		#
 		
 		print(serial.readline())
+		
+		isMotion = bool(int(serial.readline().split(" ")[3]))
+		
 	
