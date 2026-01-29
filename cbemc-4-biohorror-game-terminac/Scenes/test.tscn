@@ -1,11 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://byt6qi83cbrwe"]
+[gd_scene load_steps=18 format=3 uid="uid://byt6qi83cbrwe"]
 
+[ext_resource type="Script" uid="uid://db7tcehrvgikw" path="res://Scripts/GameSettingsManager.gd" id="1_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_ys1qc"]
-[ext_resource type="Texture2D" uid="uid://52qblra3ym2k" path="res://bricks.jpg" id="2_8od7v"]
-[ext_resource type="Script" uid="uid://ch1pqhsrhqsco" path="res://Scenes/view_distance.gd" id="3_qc4db"]
+[ext_resource type="Texture2D" uid="uid://52qblra3ym2k" path="res://Graphics/bricks.jpg" id="2_8od7v"]
+[ext_resource type="Script" uid="uid://ch1pqhsrhqsco" path="res://Scripts/view_distance.gd" id="3_qc4db"]
 [ext_resource type="PackedScene" uid="uid://bs3vubsvcnqf4" path="res://Scenes/arduino_reader.tscn" id="4_35xla"]
-[ext_resource type="Script" uid="uid://dyfec6auh1344" path="res://Scenes/monster_rawr_rawr.gd" id="4_ys1qc"]
-[ext_resource type="Texture2D" uid="uid://bdss4jbjyawhh" path="res://Untitled (250 x 500 px).png" id="6_i3aeo"]
+[ext_resource type="Script" uid="uid://dyfec6auh1344" path="res://Scripts/monster_rawr_rawr.gd" id="4_ys1qc"]
+[ext_resource type="Texture2D" uid="uid://bdss4jbjyawhh" path="res://Graphics/Untitled (250 x 500 px).png" id="6_i3aeo"]
+[ext_resource type="Script" uid="uid://401cut7gu4c8" path="res://Scripts/debug_menu.gd" id="8_0c07c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o3qbn"]
 sky_top_color = Color(0.0002838953, 0.00042584294, 0.007860149, 1)
@@ -48,7 +50,13 @@ size = Vector2(1, 2)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i3aeo"]
 points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4760704, 0.49888408, 0.16971254, 0.5591441, 0.46417162, 0.23105091, -0.8035912, 0.32045516, 0.40741014, 0.651043, -0.24352328, -0.4827893, 0.59484255, 0.082213186, -0.3628679, -0.68231165, 0.2896967, 0.46904355, -0.65452886, -0.06627126, -0.12744367, 0.8427015, -0.33810276, -0.39343542, -0.6839421, -0.24471663, 0.43825462, 0.62330925, 0.20084947, 0.0841477, 0.977454, 0.11479468, -0.06820232, -0.9764576, -0.12927033, 0.20054972, -0.56312895, -0.4514544, -0.18552664, 0.59545326, -0.4534751, -0.27336287, 0.59226835, 0.40775412, -0.0069364863, -0.47682306, 0.49966025, 0.37582088, -0.5886136, 0.31695515, 0.111579016, 0.5630594, -0.48117727, -0.41725034, 0.5278656, -0.27049688, -0.48454633, -0.59697217, -0.06650971, -0.27974695, 0.90856135, 0.05333608, -0.25019687, -0.8807117, 0.20531891, 0.263647, -0.90277094, -0.1273943, 0.29336792, 0.8715263, -0.15719566, 0.3734115, -0.5263189, -0.32824618, 0.4996626, 0.47664148, -0.0068885577, 0.053105574, 0.8750009, 0.32470253, -0.15454252, -0.5908538, 0.4658794, -0.09727988, -0.7823577, -0.39818847, -0.3876489, -0.49817133, 0.31564978, -0.30067965, -0.58799505, -0.38890144)
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3aeo"]
+radius = 0.55
+
 [node name="Test" type="Node3D"]
+script = ExtResource("1_5wyu1")
+brightness = 1.0
+overrideFear = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8od7v")
@@ -61,7 +69,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.1525817, 0)
 light_color = Color(0.66197664, 0.37856126, 0.06692826, 1)
 
-[node name="ProtoController" parent="." instance=ExtResource("1_ys1qc")]
+[node name="Player" parent="." instance=ExtResource("1_ys1qc")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_qc4db")
@@ -71,7 +79,7 @@ material_override = SubResource("ORMMaterial3D_lc1oi")
 use_collision = true
 script = ExtResource("3_qc4db")
 geometry = NodePath(".")
-player = NodePath("../../ProtoController")
+player = NodePath("../../Player")
 arduinoReader = NodePath("../../ArduinoReader")
 monster = NodePath("../../MonsterRawrRawr/MeshInstance3D")
 
@@ -130,11 +138,12 @@ size = Vector3(0.25, 2, 0.25)
 [node name="ArduinoReader" parent="." instance=ExtResource("4_35xla")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, -10)
 
-[node name="MonsterRawrRawr" type="CharacterBody3D" parent="." node_paths=PackedStringArray("player", "arduino")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, -10)
+[node name="MonsterRawrRawr" type="CharacterBody3D" parent="." node_paths=PackedStringArray("player", "arduino", "deathScreen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, -10)
 script = ExtResource("4_ys1qc")
-player = NodePath("../ProtoController")
+player = NodePath("../Player")
 arduino = NodePath("../ArduinoReader")
+deathScreen = NodePath("../Control/Label")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MonsterRawrRawr"]
 material_override = SubResource("StandardMaterial3D_ys1qc")
@@ -145,3 +154,49 @@ shape = SubResource("ConvexPolygonShape3D_i3aeo")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="MonsterRawrRawr"]
 debug_enabled = true
+
+[node name="Area3D" type="Area3D" parent="MonsterRawrRawr"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MonsterRawrRawr/Area3D"]
+shape = SubResource("CapsuleShape3D_i3aeo")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control"]
+visible = false
+layout_mode = 0
+offset_left = 505.0
+offset_top = 179.0
+offset_right = 592.0
+offset_bottom = 202.0
+text = "you dieded"
+
+[node name="Debug Menu" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_0c07c")
+
+[node name="HeartRate" type="Label" parent="Control/Debug Menu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="HSlider" type="HSlider" parent="Control/Debug Menu/HeartRate"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 131.0
+offset_right = 234.0
+offset_bottom = 157.0
+min_value = 50.0
+max_value = 200.0
+step = 5.0
+value = 50.0
+tick_count = 30
+ticks_position = 3
+
+[connection signal="body_entered" from="MonsterRawrRawr/Area3D" to="MonsterRawrRawr" method="_on_area_3d_body_entered"]

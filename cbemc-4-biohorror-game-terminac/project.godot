@@ -13,7 +13,7 @@ config_version=5
 config/name="CBEMC4_HorrorGame_Terminac"
 run/main_scene="uid://byt6qi83cbrwe"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://Graphics/icon.svg"
 
 [editor_plugins]
 

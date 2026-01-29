@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bs3vubsvcnqf4"]
 
-[ext_resource type="Script" uid="uid://b2jg6wbc5li33" path="res://Scenes/arduino_reader.gd" id="1_rmwqc"]
+[ext_resource type="Script" uid="uid://b2jg6wbc5li33" path="res://Scripts/arduino_reader.gd" id="1_rmwqc"]
 
 [node name="ArduinoReader" type="Node3D"]
 script = ExtResource("1_rmwqc")
