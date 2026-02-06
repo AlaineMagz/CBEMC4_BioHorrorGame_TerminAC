@@ -1,5 +1,2 @@
 res://Scenes/test.tscn
-res://Scenes/monster_rawr_rawr.gd
-res://Scenes/view_distance.gd
-res://Scenes/arduino_reader.gd
-res://Scenes/monstertest.tscn
+res://Scripts/arduino_reader.gd

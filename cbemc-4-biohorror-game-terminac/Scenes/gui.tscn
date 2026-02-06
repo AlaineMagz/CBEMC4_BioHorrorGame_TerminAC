@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://cl8k0xck7417y"]
+
+[ext_resource type="Script" uid="uid://401cut7gu4c8" path="res://Scripts/debug_menu.gd" id="1_qyd3e"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qyd3e"]
+font_size = 150
+
+[node name="GUI" type="Control" unique_id=917991586]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qyd3e")
+
+[node name="DebugPanel" type="Panel" parent="." unique_id=1452985624]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 410.0
+offset_bottom = 410.0
+
+[node name="PanelTitle" type="Label" parent="DebugPanel" unique_id=571237579]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33333334
+anchor_top = 0.083333336
+anchor_right = 0.6666667
+anchor_bottom = 0.14722222
+grow_horizontal = 2
+text = "Debug Panel! :0"
+metadata/_edit_use_anchors_ = true
+
+[node name="OverrideLabel" type="Label" parent="DebugPanel" unique_id=92047611]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 90.0
+offset_right = 85.0
+offset_bottom = 113.0
+text = "Override Arduino Readings?"
+
+[node name="OverrideButton" type="CheckButton" parent="DebugPanel" unique_id=1831064415]
+layout_mode = 0
+offset_left = 269.0
+offset_top = 90.0
+offset_right = 313.0
+offset_bottom = 114.0
+
+[node name="HeartRateLabel" type="Label" parent="DebugPanel" unique_id=1401504742]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.25
+anchor_right = 0.40555555
+anchor_bottom = 0.31388888
+offset_top = 30.0
+offset_bottom = 30.000008
+text = "Heart Rate: 50"
+
+[node name="HSlider" type="HSlider" parent="DebugPanel" unique_id=1081881844]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -30.0
+offset_right = 131.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = 50.0
+max_value = 200.0
+step = 5.0
+value = 50.0
+tick_count = 30
+ticks_position = 3
+
+[node name="MotionLabel" type="Label" parent="DebugPanel" unique_id=1782776357]
+layout_mode = 0
+anchor_left = 0.125
+anchor_top = 0.41666666
+anchor_right = 0.61944443
+anchor_bottom = 0.48055556
+offset_top = 30.0
+offset_bottom = 30.0
+text = "Motion Detected: False"
+
+[node name="CheckButton" type="CheckButton" parent="DebugPanel" unique_id=990207665]
+layout_mode = 0
+anchor_top = 1.3043479
+anchor_right = 0.24719101
+anchor_bottom = 2.347826
+offset_left = 45.0
+offset_top = -259.56525
+offset_right = 0.011238098
+offset_bottom = -611.21735
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1810165409]
+layout_mode = 0
+offset_left = -15.0
+offset_top = -13.0
+offset_right = 1103.0
+offset_bottom = 732.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=1333449507]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 164.0
+offset_right = 961.0
+offset_bottom = 577.0
+text = "you dieded
+:("
+label_settings = SubResource("LabelSettings_qyd3e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="toggled" from="DebugPanel/OverrideButton" to="." method="_on_override_button_toggled"]
+[connection signal="value_changed" from="DebugPanel/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="toggled" from="DebugPanel/CheckButton" to="." method="_on_check_button_toggled"]

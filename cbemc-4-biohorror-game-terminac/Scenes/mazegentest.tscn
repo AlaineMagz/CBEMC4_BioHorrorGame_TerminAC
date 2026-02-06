@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://nwsvworbj8xu"]
+
+[ext_resource type="Script" uid="uid://6y8o8abwpxo7" path="res://Scripts/mazegentest.gd" id="1_l5gp4"]
+[ext_resource type="PackedScene" uid="uid://bwcw26qm6fnjx" path="res://Scenes/maze.tscn" id="2_54wcq"]
+[ext_resource type="PackedScene" uid="uid://ctptyxdabct6v" path="res://Scenes/monster_rawr_rawr.tscn" id="4_l5gp4"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wbx45"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_iou2d"]
+sky_material = SubResource("ProceduralSkyMaterial_wbx45")
+
+[sub_resource type="Environment" id="Environment_54wcq"]
+background_mode = 2
+sky = SubResource("Sky_iou2d")
+tonemap_mode = 2
+
+[node name="mazegentest" type="Node3D" unique_id=1587032294]
+script = ExtResource("1_l5gp4")
+
+[node name="Misc" type="Node3D" parent="." unique_id=377845852]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Misc" unique_id=1526200070]
+environment = SubResource("Environment_54wcq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Misc" unique_id=2049386996]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Maze" parent="." unique_id=520149343 instance=ExtResource("2_54wcq")]
+
+[node name="MonsterRawrRawr" parent="." unique_id=806946628 instance=ExtResource("4_l5gp4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.754884, 2.009428, 7.8016663)
+
+[node name="Camera3D" type="Camera3D" parent="MonsterRawrRawr" unique_id=1563884951]
+transform = Transform3D(0.9998477, -0.015473698, 0.008070774, 0, 0.4624552, 0.88664263, -0.017452013, -0.88650763, 0.4623848, 0.41801167, 35.038635, 22.367193)

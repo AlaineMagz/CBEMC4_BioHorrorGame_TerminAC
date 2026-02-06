@@ -1,18 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://byt6qi83cbrwe"]
+[gd_scene format=3 uid="uid://byt6qi83cbrwe"]
 
+[ext_resource type="Script" uid="uid://db7tcehrvgikw" path="res://Scripts/GameSettingsManager.gd" id="1_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_ys1qc"]
-[ext_resource type="Texture2D" uid="uid://52qblra3ym2k" path="res://bricks.jpg" id="2_8od7v"]
-[ext_resource type="Script" uid="uid://ch1pqhsrhqsco" path="res://Scenes/view_distance.gd" id="3_qc4db"]
+[ext_resource type="PackedScene" uid="uid://bwcw26qm6fnjx" path="res://Scenes/maze.tscn" id="3_i3aeo"]
 [ext_resource type="PackedScene" uid="uid://bs3vubsvcnqf4" path="res://Scenes/arduino_reader.tscn" id="4_35xla"]
-[ext_resource type="Script" uid="uid://dyfec6auh1344" path="res://Scenes/monster_rawr_rawr.gd" id="4_ys1qc"]
-[ext_resource type="Texture2D" uid="uid://bdss4jbjyawhh" path="res://Untitled (250 x 500 px).png" id="6_i3aeo"]
+[ext_resource type="PackedScene" uid="uid://ctptyxdabct6v" path="res://Scenes/monster_rawr_rawr.tscn" id="6_5wyu1"]
+[ext_resource type="PackedScene" uid="uid://cl8k0xck7417y" path="res://Scenes/gui.tscn" id="7_5wyu1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o3qbn"]
 sky_top_color = Color(0.0002838953, 0.00042584294, 0.007860149, 1)
 sky_horizon_color = Color(0.012343818, 0.01330915, 0.08584549, 1)
+sky_curve = 0.15528965
 sky_cover_modulate = Color(0, 0, 0, 1)
 ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0, 0, 0.13725491, 1)
+ground_horizon_color = Color(0.012343818, 0.01330915, 0.08584549, 1)
+ground_curve = 0.085742146
 
 [sub_resource type="Sky" id="Sky_lc1oi"]
 sky_material = SubResource("ProceduralSkyMaterial_o3qbn")
@@ -20,128 +22,67 @@ sky_material = SubResource("ProceduralSkyMaterial_o3qbn")
 [sub_resource type="Environment" id="Environment_8od7v"]
 background_mode = 2
 sky = SubResource("Sky_lc1oi")
+ambient_light_source = 2
+ambient_light_color = Color(0.15170373, 0.15170373, 0.24780053, 1)
+ambient_light_energy = 0.5
 tonemap_mode = 2
+fog_mode = 1
+fog_light_color = Color(0.09320182, 0.09320182, 0.12315822, 1)
+fog_density = 1.0
+fog_depth_curve = 0.40612614
+fog_depth_begin = 5.0
+fog_depth_end = 30.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.1
+volumetric_fog_albedo = Color(0.15170373, 0.1897483, 0.29337206, 1)
+volumetric_fog_emission_energy = 0.15
+volumetric_fog_gi_inject = 0.1
+volumetric_fog_length = 40.0
+volumetric_fog_detail_spread = 0.5
+volumetric_fog_ambient_inject = 3.0
+volumetric_fog_sky_affect = 0.0
+volumetric_fog_temporal_reprojection_amount = 0.5
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_qc4db"]
-vertices = PackedVector3Array(-13.5, 5.4, -52.883526, -13.75, 5.4, -52.383526, -11.75, 5.4, -50.633526, -10.5, 5.4, -49.633526, -10.5, 5.4, -49.383526, -9.25, 5.4, -48.383526, -9.25, 5.4, -49.133526, -12, 5.4, -49.633526, -49.5, 5.4, -49.633526, -49.5, 5.4, -49.133526, 49.5, 5.4, -49.133526, 49.5, 5.4, -49.633526, 20.75, 5.4, -17.883526, 21.25, 5.4, -18.133526, -48.25, 0.4, -20.133526, -45.5, 0.4, -20.133526, -45.25, 0.4, -21.133526, -35.5, 0.4, -21.133526, -35.5, 0.4, -25.383526, -33, 0.4, -48.383526, -48.25, 0.4, -48.383526, -33.5, 0.4, -25.633526, -33.25, 0.4, -25.133526, -33.25, 0.4, -21.133526, 5.25, 0.4, -21.133526, 8.25, 0.4, -28.883526, -11, 0.4, -48.383526, 22.25, 0.4, -18.633526, 22.25, 0.4, -17.883526, 30, 0.4, -17.883526, 30, 0.4, -25.383526, 31, 0.4, -48.383526, -7.5, 0.4, -48.383526, 31, 0.4, -25.633526, 32.25, 0.4, -25.383526, 32.25, 0.4, -23.883526, 48.5, 0.4, -24.133526, 48.5, 0.4, -48.383526, 3.25, 0.4, 9.616474, -1.25, 0.4, 9.616474, -1.25, 0.4, 11.866474, -6.5, 5.4, 11.116474, -2.25, 5.4, 11.116474, -2, 5.4, 8.616474, -6.5, 5.4, 6.866474, 21.5, 0.4, -16.633526, 20.5, 0.4, -16.633526, 3.25, 0.4, 5.866474, 3.25, 0.65, 6.866474, 3.25, 0.65, 8.616474, 0.4642868, 3.4, 6.866474, -2.3214264, 5.4, 6.866474, 30, 0.4, 18.116474, -3.5, 0.4, 12.116474, -3.5, 0.4, 18.116474, 5.75, 0.4, -20.883526, 5.5, 0.4, -18.883526, 2, 0.4, -18.883526, 1.75, 0.4, 5.866474, 31.25, 5.4, 18.866474, 31.25, 5.4, -24.633526, 31, 5.4, 18.866474, 31.5, 5.4, 19.366474, 37.5, 5.4, 19.366474, -11.75, 5.4, 19.116474, 30.75, 5.4, 19.366474, 31, 5.4, 24.616474, 38.25, 0.4, 18.116474, 38.5, 0.4, 19.366474, 48.5, 0.4, 19.366474, 32.25, 0.4, 18.116474, -44.5, 5.4, -20.133526, -34.75, 5.4, -19.633526, 4.5, 5.4, -19.883526, -45.25, 0.4, -18.883526, -48.25, 0.4, 24.116474, -35.5, 0.4, 23.866474, -35.5, 0.4, -18.883526, -10.75, 0.4, -0.38352585, -10, 0.4, -0.63352585, -10, 0.4, -18.883526, -33.25, 0.4, -18.883526, -33.25, 0.4, 0.11647415, -10.75, 0.4, 0.11647415, -9.25, 0.4, -0.38352585, -9.5, 0.4, 0.86647415, -7, 0.4, 5.866474, -7.5, 0.4, 6.116474, -10.5, 0.4, 0.86647415, -7.5, 0.4, 11.866474, -12.5, 0.4, 18.116474, -12.75, 0.4, 19.366474, -33.25, 0.4, 19.366474, -12.5, 0.4, 20.366474, -33.25, 0.4, 25.116474, -10.5, 0.4, 20.366474, -33, 0.4, 48.366474, -10.5, 0.4, 48.366474, 38.25, 0.4, 20.366474, 32.25, 0.4, 20.366474, 32.25, 0.4, 25.366474, 31, 0.4, 48.366474, 48.5, 0.4, 48.366474, 31, 0.4, 25.616474, 30, 0.4, 25.366474, 30, 0.4, 20.366474, -35.25, 0.4, 25.616474, -48.25, 0.4, 48.366474, -33.5, 0.4, 25.616474, -49.5, 5.4, 49.116474, -49.5, 5.4, 49.616474, 49.5, 5.4, 49.616474, 49.5, 5.4, 49.116474)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(4, 7, 3), PackedInt32Array(3, 7, 2), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 4), PackedInt32Array(4, 3, 6), PackedInt32Array(6, 3, 10), PackedInt32Array(10, 3, 11), PackedInt32Array(13, 12, 5), PackedInt32Array(5, 12, 4), PackedInt32Array(16, 15, 14), PackedInt32Array(18, 17, 16), PackedInt32Array(16, 14, 18), PackedInt32Array(18, 14, 20), PackedInt32Array(18, 20, 19), PackedInt32Array(19, 22, 21), PackedInt32Array(19, 21, 18), PackedInt32Array(22, 19, 23), PackedInt32Array(23, 19, 26), PackedInt32Array(23, 26, 25), PackedInt32Array(23, 25, 24), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 30), PackedInt32Array(30, 27, 31), PackedInt32Array(31, 27, 32), PackedInt32Array(31, 33, 30), PackedInt32Array(36, 35, 34), PackedInt32Array(34, 33, 36), PackedInt32Array(36, 33, 31), PackedInt32Array(36, 31, 37), PackedInt32Array(40, 39, 38), PackedInt32Array(42, 41, 43), PackedInt32Array(43, 41, 44), PackedInt32Array(47, 46, 45), PackedInt32Array(48, 49, 50), PackedInt32Array(50, 49, 43), PackedInt32Array(50, 43, 51), PackedInt32Array(51, 43, 44), PackedInt32Array(48, 47, 52), PackedInt32Array(52, 47, 45), PackedInt32Array(52, 45, 29), PackedInt32Array(54, 53, 40), PackedInt32Array(55, 24, 25), PackedInt32Array(29, 45, 28), PackedInt32Array(55, 25, 56), PackedInt32Array(56, 25, 46), PackedInt32Array(40, 38, 54), PackedInt32Array(54, 38, 52), PackedInt32Array(52, 38, 49), PackedInt32Array(56, 46, 57), PackedInt32Array(57, 46, 47), PackedInt32Array(57, 47, 58), PackedInt32Array(52, 49, 48), PackedInt32Array(61, 60, 59), PackedInt32Array(59, 63, 62), PackedInt32Array(64, 61, 65), PackedInt32Array(59, 62, 61), PackedInt32Array(61, 62, 65), PackedInt32Array(65, 62, 66), PackedInt32Array(68, 67, 69), PackedInt32Array(69, 67, 36), PackedInt32Array(36, 67, 35), PackedInt32Array(67, 70, 35), PackedInt32Array(73, 72, 71), PackedInt32Array(15, 74, 14), PackedInt32Array(14, 74, 75), PackedInt32Array(77, 76, 74), PackedInt32Array(74, 76, 75), PackedInt32Array(79, 78, 80), PackedInt32Array(80, 78, 81), PackedInt32Array(81, 78, 82), PackedInt32Array(78, 83, 82), PackedInt32Array(86, 85, 84), PackedInt32Array(86, 84, 58), PackedInt32Array(58, 84, 80), PackedInt32Array(58, 80, 57), PackedInt32Array(84, 79, 80), PackedInt32Array(85, 86, 87), PackedInt32Array(85, 87, 88), PackedInt32Array(88, 87, 89), PackedInt32Array(53, 54, 89), PackedInt32Array(89, 54, 90), PackedInt32Array(90, 91, 83), PackedInt32Array(83, 91, 92), PackedInt32Array(83, 92, 82), PackedInt32Array(88, 89, 83), PackedInt32Array(83, 89, 90), PackedInt32Array(91, 93, 92), PackedInt32Array(92, 93, 94), PackedInt32Array(93, 95, 94), PackedInt32Array(94, 95, 96), PackedInt32Array(96, 95, 97), PackedInt32Array(100, 99, 98), PackedInt32Array(98, 68, 69), PackedInt32Array(98, 69, 100), PackedInt32Array(100, 69, 101), PackedInt32Array(101, 69, 102), PackedInt32Array(101, 103, 100), PackedInt32Array(103, 101, 104), PackedInt32Array(104, 101, 97), PackedInt32Array(104, 97, 95), PackedInt32Array(95, 105, 104), PackedInt32Array(76, 106, 75), PackedInt32Array(75, 106, 107), PackedInt32Array(107, 106, 96), PackedInt32Array(96, 108, 94), PackedInt32Array(106, 108, 96), PackedInt32Array(112, 111, 109), PackedInt32Array(109, 111, 110)]
+[node name="Test" type="Node3D" unique_id=1852078308 node_paths=PackedStringArray("environment", "sun", "player", "maze", "monster", "arduinoReader", "GUI")]
+script = ExtResource("1_5wyu1")
+environment = NodePath("WorldEnvironment")
+sun = NodePath("Sun")
+player = NodePath("Player")
+maze = NodePath("Maze")
+monster = NodePath("MonsterRawrRawr")
+arduinoReader = NodePath("ArduinoReader")
+GUI = NodePath("GUI")
+brightness = 0.15
+ambient_light = 0.5
+heart_distance_mult = 3
 
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_lc1oi"]
-albedo_texture = ExtResource("2_8od7v")
-uv1_scale = Vector3(0.5, 0.5, 0.5)
-uv1_triplanar = true
-distance_fade_min_distance = 10.0
-distance_fade_max_distance = 5.0
-stencil_flags = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ys1qc"]
-transparency = 1
-albedo_texture = ExtResource("6_i3aeo")
-emission_enabled = true
-backlight_enabled = true
-backlight = Color(1, 1, 1, 1)
-billboard_mode = 1
-
-[sub_resource type="QuadMesh" id="QuadMesh_5wyu1"]
-size = Vector2(1, 2)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i3aeo"]
-points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4760704, 0.49888408, 0.16971254, 0.5591441, 0.46417162, 0.23105091, -0.8035912, 0.32045516, 0.40741014, 0.651043, -0.24352328, -0.4827893, 0.59484255, 0.082213186, -0.3628679, -0.68231165, 0.2896967, 0.46904355, -0.65452886, -0.06627126, -0.12744367, 0.8427015, -0.33810276, -0.39343542, -0.6839421, -0.24471663, 0.43825462, 0.62330925, 0.20084947, 0.0841477, 0.977454, 0.11479468, -0.06820232, -0.9764576, -0.12927033, 0.20054972, -0.56312895, -0.4514544, -0.18552664, 0.59545326, -0.4534751, -0.27336287, 0.59226835, 0.40775412, -0.0069364863, -0.47682306, 0.49966025, 0.37582088, -0.5886136, 0.31695515, 0.111579016, 0.5630594, -0.48117727, -0.41725034, 0.5278656, -0.27049688, -0.48454633, -0.59697217, -0.06650971, -0.27974695, 0.90856135, 0.05333608, -0.25019687, -0.8807117, 0.20531891, 0.263647, -0.90277094, -0.1273943, 0.29336792, 0.8715263, -0.15719566, 0.3734115, -0.5263189, -0.32824618, 0.4996626, 0.47664148, -0.0068885577, 0.053105574, 0.8750009, 0.32470253, -0.15454252, -0.5908538, 0.4658794, -0.09727988, -0.7823577, -0.39818847, -0.3876489, -0.49817133, 0.31564978, -0.30067965, -0.58799505, -0.38890144)
-
-[node name="Test" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=307656450]
 environment = SubResource("Environment_8od7v")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.64412355, -0.6696616, 0.3696731, 0, 0.48328245, 0.8754645, -0.7649214, 0.5639073, -0.3112936, 0, 0, 0)
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=20241881]
+transform = Transform3D(-0.03126609, -0.8975486, -0.4398057, -0.46670407, -0.37599748, 0.80050814, -0.88386077, 0.2302879, -0.40713367, 0, 0, 0)
+light_color = Color(0.7977378, 0.85430586, 1, 1)
+light_energy = 0.15
+light_indirect_energy = 0.1
 shadow_enabled = true
+shadow_bias = 0.05
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.1525817, 0)
-light_color = Color(0.66197664, 0.37856126, 0.06692826, 1)
+[node name="Player" parent="." unique_id=1474919529 instance=ExtResource("1_ys1qc")]
+transform = Transform3D(-0.99975437, 0, 0.022163874, 0, 1, 0, -0.022163874, 0, -0.99975437, 11.616816, 0, 10.769631)
 
-[node name="ProtoController" parent="." instance=ExtResource("1_ys1qc")]
+[node name="Maze" parent="." unique_id=520149343 instance=ExtResource("3_i3aeo")]
+ceiling_height = 7.0
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_qc4db")
+[node name="ArduinoReader" parent="." unique_id=582785505 instance=ExtResource("4_35xla")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.26758, 0)
+showDebug = true
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="NavigationRegion3D" node_paths=PackedStringArray("geometry", "player", "arduinoReader", "monster")]
-material_override = SubResource("ORMMaterial3D_lc1oi")
-use_collision = true
-script = ExtResource("3_qc4db")
-geometry = NodePath(".")
-player = NodePath("../../ProtoController")
-arduinoReader = NodePath("../../ArduinoReader")
-monster = NodePath("../../MonsterRawrRawr/MeshInstance3D")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-size = Vector3(100, 0.2, 100)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, 2.5, 0)
-size = Vector3(1, 5, 100)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5, 2.5, 0)
-size = Vector3(1, 5, 50)
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.028198, 2.5, 0)
-size = Vector3(1, 5, 50)
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 3.6234207, 2.5, -35.352303)
-size = Vector3(1, 5, 50)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, -20)
-size = Vector3(50, 5, 1)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.942398, 2.5, 19.226784)
-size = Vector3(50, 5, 1)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, 2.5, 0)
-size = Vector3(1, 5, 100)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -49.5)
-size = Vector3(100, 5, 1)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 49.5)
-size = Vector3(100, 5, 1)
-
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, 0, 9)
-polygon = PackedVector2Array(0, 0, 0, 5, 5, 0, 5, 0)
-depth = 2.5
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3, 2.5, 9)
-size = Vector3(5, 4.98, 5)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0)
-size = Vector3(0.25, 2, 0.25)
-
-[node name="ArduinoReader" parent="." instance=ExtResource("4_35xla")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, -10)
-
-[node name="MonsterRawrRawr" type="CharacterBody3D" parent="." node_paths=PackedStringArray("player", "arduino")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 5, -10)
-script = ExtResource("4_ys1qc")
-player = NodePath("../ProtoController")
+[node name="MonsterRawrRawr" parent="." unique_id=982191000 node_paths=PackedStringArray("player", "arduino") instance=ExtResource("6_5wyu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.82984, 1, 67.65223)
+baseSpeed = 10.0
+player = NodePath("../Player")
 arduino = NodePath("../ArduinoReader")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MonsterRawrRawr"]
-material_override = SubResource("StandardMaterial3D_ys1qc")
-mesh = SubResource("QuadMesh_5wyu1")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MonsterRawrRawr"]
-shape = SubResource("ConvexPolygonShape3D_i3aeo")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="MonsterRawrRawr"]
-debug_enabled = true
+[node name="GUI" parent="." unique_id=917991586 node_paths=PackedStringArray("arduino_reader") instance=ExtResource("7_5wyu1")]
+mouse_filter = 2
+arduino_reader = NodePath("../ArduinoReader")
