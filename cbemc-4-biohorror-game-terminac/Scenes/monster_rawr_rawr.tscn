@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctptyxdabct6v"]
+[gd_scene format=3 uid="uid://ctptyxdabct6v"]
 
 [ext_resource type="Script" uid="uid://dyfec6auh1344" path="res://Scripts/monster_rawr_rawr.gd" id="1_wg30a"]
 [ext_resource type="Texture2D" uid="uid://bdss4jbjyawhh" path="res://Graphics/Untitled (250 x 500 px).png" id="2_ujv4w"]
@@ -20,23 +20,38 @@ points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3aeo"]
 radius = 0.55
 
-[node name="MonsterRawrRawr" type="CharacterBody3D"]
+[node name="MonsterRawrRawr" type="CharacterBody3D" unique_id=356952776]
 script = ExtResource("1_wg30a")
+baseWanderSpeed = null
+baseChaseSpeed = null
+rotation_speed = null
+acceleration = null
+vision_angle = null
+vision_range = null
+scan_duration = null
+idle_duration = null
+maze_bounds_rect = null
+min_wander_distance = null
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2088007234]
 material_override = SubResource("StandardMaterial3D_ys1qc")
 mesh = SubResource("QuadMesh_5wyu1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1068220445]
 shape = SubResource("ConvexPolygonShape3D_i3aeo")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2016174950]
 path_postprocessing = 1
 debug_enabled = true
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." unique_id=243300759]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2103208503]
 shape = SubResource("CapsuleShape3D_i3aeo")
+
+[node name="SearchTimer" type="Timer" parent="." unique_id=1366919923]
+
+[node name="VisionCone" type="RayCast3D" parent="." unique_id=1939545982]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

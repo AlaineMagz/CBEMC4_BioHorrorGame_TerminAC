@@ -1,2 +1,3 @@
-res://Scenes/test.tscn
-res://Scripts/arduino_reader.gd
+res://Scenes/monster_rawr_rawr.tscn
+res://Scripts/monster_rawr_rawr.gd
+res://Scenes/maze.tscn
