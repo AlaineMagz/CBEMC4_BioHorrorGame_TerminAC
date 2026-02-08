@@ -24,7 +24,6 @@ background_mode = 2
 sky = SubResource("Sky_lc1oi")
 ambient_light_source = 2
 ambient_light_color = Color(0.15170373, 0.15170373, 0.24780053, 1)
-ambient_light_energy = 0.5
 tonemap_mode = 2
 fog_mode = 1
 fog_light_color = Color(0.09320182, 0.09320182, 0.12315822, 1)
@@ -52,8 +51,8 @@ maze = NodePath("Maze")
 monster = NodePath("MonsterRawrRawr")
 arduinoReader = NodePath("ArduinoReader")
 GUI = NodePath("GUI")
-brightness = 0.15
-ambient_light = 0.5
+brightness = 2.0
+ambient_light = 1.0
 heart_distance_mult = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=307656450]
@@ -62,7 +61,7 @@ environment = SubResource("Environment_8od7v")
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=20241881]
 transform = Transform3D(-0.03126609, -0.8975486, -0.4398057, -0.46670407, -0.37599748, 0.80050814, -0.88386077, 0.2302879, -0.40713367, 0, 0, 0)
 light_color = Color(0.7977378, 0.85430586, 1, 1)
-light_energy = 0.15
+light_energy = 2.0
 light_indirect_energy = 0.1
 shadow_enabled = true
 shadow_bias = 0.05
@@ -77,11 +76,9 @@ ceiling_height = 7.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.26758, 0)
 showDebug = true
 
-[node name="MonsterRawrRawr" parent="." unique_id=982191000 node_paths=PackedStringArray("player", "arduino") instance=ExtResource("6_5wyu1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.82984, 1, 67.65223)
-baseSpeed = 10.0
-player = NodePath("../Player")
-arduino = NodePath("../ArduinoReader")
+[node name="MonsterRawrRawr" parent="." unique_id=982191000 node_paths=PackedStringArray("manager") instance=ExtResource("6_5wyu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.82984, 1, 71.35387)
+manager = NodePath("..")
 
 [node name="GUI" parent="." unique_id=917991586 node_paths=PackedStringArray("arduino_reader") instance=ExtResource("7_5wyu1")]
 mouse_filter = 2

@@ -1,3 +1,5 @@
 res://Scenes/monster_rawr_rawr.tscn
 res://Scripts/monster_rawr_rawr.gd
 res://Scenes/maze.tscn
+res://Scenes/test.tscn
+res://addons/proto_controller/proto_controller.gd
