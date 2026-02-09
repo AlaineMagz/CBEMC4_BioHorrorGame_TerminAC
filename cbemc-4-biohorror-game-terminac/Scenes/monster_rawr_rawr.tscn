@@ -31,7 +31,7 @@ mesh = SubResource("QuadMesh_5wyu1")
 shape = SubResource("ConvexPolygonShape3D_i3aeo")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2016174950]
-path_postprocessing = 1
+simplify_path = true
 debug_enabled = true
 
 [node name="Area3D" type="Area3D" parent="." unique_id=243300759]
@@ -42,7 +42,15 @@ shape = SubResource("CapsuleShape3D_i3aeo")
 [node name="StateTimer" type="Timer" parent="." unique_id=1366919923]
 
 [node name="VisionCone" type="RayCast3D" parent="." unique_id=1939545982]
-transform = Transform3D(10, 0, 0, 0, -1.3113416e-07, -10, 0, 3, -4.371139e-07, 0, 0.6, 3.045)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, -1)
 debug_shape_thickness = 5
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1091424154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 3.0
+spot_range = 30.0
+spot_angle = 85.0
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

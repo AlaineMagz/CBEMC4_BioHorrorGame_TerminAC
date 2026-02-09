@@ -1,5 +1,7 @@
 extends Node3D
 
+@export var manager : Node3D
+
 var serial: GdSerial
 
 @export_category("Detected Values")
@@ -17,11 +19,15 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	
-	if serialOpen:
-		read_values()
+	var line
+	
+	if serialOpen and serial.bytes_available():
+		line = serial.readline()
+		read_values(line)
 		if showDebug:
 			print("+-----+")
 			print("IR Value: " + str(irValue) + ", Motion Detected: " + str(isMotion).capitalize())
+		manager.GUI.add_to_monitor(line)
 	
 
 func open_serial() -> void:
@@ -31,7 +37,14 @@ func open_serial() -> void:
 	var ports = serial.list_ports()
 	print("Available ports:", ports)
 	
-	if not ports.has("COM3"):
+	var com_port_found = false
+	
+	for p in ports.values():
+		if p.has("port_name") and p["port_name"] == "COM3":
+			com_port_found = true
+			break
+	
+	if not com_port_found:
 		push_warning("COM3 not found. Serial not opened.")
 		return
 	
@@ -46,15 +59,15 @@ func open_serial() -> void:
 		serialOpen = true
 	
 
-func read_values() -> void:
+func read_values(line : String) -> void:
 	
-	if(serial.bytes_available()):
-		var ir = float(serial.readline().split(" ")[0].split(",")[0])
-		irValue = ir
-		isMotion = bool(int(serial.readline().split(" ")[3]))
+	#if(serial.bytes_available()):
+		#var ir = float(line.split(" ")[0].split(",")[0])
+		#irValue = ir
+		#isMotion = bool(int(line.split(" ")[3]))
 		
 		if showDebug:
 			print("+-----+")
-			print("Serial Read: " + serial.readline())
+			print("Serial Read: " + line)
 		
 	

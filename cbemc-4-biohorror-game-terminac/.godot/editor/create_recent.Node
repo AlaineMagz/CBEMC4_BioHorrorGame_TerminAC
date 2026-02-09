@@ -1,3 +1,6 @@
+ColorRect
+RichTextLabel
+SpotLight3D
 RayCast3D
 Node3D
 Timer
