@@ -5,7 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://bwcw26qm6fnjx" path="res://Scenes/maze.tscn" id="3_i3aeo"]
 [ext_resource type="PackedScene" uid="uid://bs3vubsvcnqf4" path="res://Scenes/arduino_reader.tscn" id="4_35xla"]
 [ext_resource type="PackedScene" uid="uid://ctptyxdabct6v" path="res://Scenes/monster_rawr_rawr.tscn" id="6_5wyu1"]
+[ext_resource type="Script" uid="uid://1hcr5alqhxg8" path="res://Scripts/mqtt_client.gd" id="7_0c07c"]
 [ext_resource type="PackedScene" uid="uid://cl8k0xck7417y" path="res://Scenes/gui.tscn" id="7_5wyu1"]
+[ext_resource type="Script" uid="uid://gsfdv56476hw" path="res://addons/mqtt-node/mqtt-node.gd" id="8_0c07c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o3qbn"]
 sky_top_color = Color(0.0002838953, 0.00042584294, 0.007860149, 1)
@@ -81,7 +83,15 @@ showDebug = true
 [node name="MonsterRawrRawr" parent="." unique_id=982191000 node_paths=PackedStringArray("manager") instance=ExtResource("6_5wyu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.82984, 1, 71.35387)
 manager = NodePath("..")
+baseWanderSpeed = 0.0
 
 [node name="GUI" parent="." unique_id=917991586 node_paths=PackedStringArray("arduino_reader") instance=ExtResource("7_5wyu1")]
 mouse_filter = 2
 arduino_reader = NodePath("../ArduinoReader")
+
+[node name="MQTTClient" type="Node3D" parent="." unique_id=551885067]
+script = ExtResource("7_0c07c")
+
+[node name="MqttNode" type="Node" parent="." unique_id=1992662548]
+script = ExtResource("8_0c07c")
+metadata/_custom_type_script = "uid://gsfdv56476hw"
