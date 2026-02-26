@@ -116,7 +116,7 @@ func fill_all_dead_ends(maze_structure: Array) -> void:
 				for n in neighbors:
 					if n == 1:
 						wall_count += 1
-				# if 3 or 4 neighbors are walls, fill this cell
+				# if 3 or 4 neighbors are walls, fill this cell half of the time
 				if wall_count >= 3:
 					if randi_range(0,1) == 1:
 						maze_structure[y][x] = 2
@@ -136,15 +136,28 @@ func generate_maze_geometry(maze_structure : Array) -> void:
 				var cell = CSGBox3D.new()
 				cell.name = "Cell " + str(x) + "-" + str(z)
 				cell.size = Vector3(cell_x, cell_y, cell_z)
-				cell.position = Vector3((x * cell_x) + (cell_x / 2.0), cell_y / 2.0, (z * cell_z) +(cell_z / 2.0))
+				cell.position = Vector3((x * cell_x) + (cell_x / 2.0), cell_y / 2.0, (z * cell_z) + (cell_z / 2.0))
 				maze_walls.add_child(cell)
 				cell.owner = get_tree().edited_scene_root
 			else: if maze_structure[z][x] == 2:
 				var cell = CSGBox3D.new()
 				cell.name = "Cell " + str(x) + "-" + str(z)
 				cell.size = Vector3(cell_x, ceiling_height, cell_z)
-				cell.position = Vector3((x * cell_x) + (cell_x / 2.0), cell_y - (cell.size.y / 2), (z * cell_z) +(cell_z / 2.0))
+				cell.position = Vector3((x * cell_x) + (cell_x / 2.0), cell_y - (cell.size.y / 2.0), (z * cell_z) + (cell_z / 2.0))
 				maze_walls.add_child(cell)
 				cell.owner = get_tree().edited_scene_root
+				var area = Area3D.new()
+				area.name = "Hiding Spot " + str(x) + "-" + str(z)
+				var areaShape = CollisionShape3D.new()
+				areaShape.name = "AreaShape " + str(x) + "-" + str(z)
+				var boxShape = BoxShape3D.new()
+				boxShape.size = Vector3(cell_x, cell_y - ceiling_height, cell_z)
+				areaShape.shape = boxShape
+				area.position = Vector3((x * cell_x) + (cell_x / 2.0), cell_y - cell.size.y * 1.5, (z * cell_z) + (cell_z / 2.0))
+				maze_walls.add_child(area)
+				area.owner = get_tree().edited_scene_root
+				area.add_child(areaShape)
+				areaShape.owner = get_tree().edited_scene_root
+				
 			
 	

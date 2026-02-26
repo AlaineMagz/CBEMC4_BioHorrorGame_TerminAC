@@ -58,9 +58,15 @@ func get_arduino_variables(value):
 	
 	if value == "ir":
 		if GUI.overrideSwitch:
-			return GUI.heartRateOverride / 50
+			return GUI.heartRateOverride / GUI.averageHeartRateOverride
 		else:
-			return arduinoReader.irValue
+			return arduinoReader.irValue / 1000
+	
+	if value == "motion":
+		if GUI.overrideSwitch:
+			return GUI.motionDetectOverride
+		else: 
+			return arduinoReader.isMotion
 	
 
 func death_screen() -> void:

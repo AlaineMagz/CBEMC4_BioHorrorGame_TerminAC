@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ctptyxdabct6v" path="res://Scenes/monster_rawr_rawr.tscn" id="6_5wyu1"]
 [ext_resource type="Script" uid="uid://1hcr5alqhxg8" path="res://Scripts/mqtt_client.gd" id="7_0c07c"]
 [ext_resource type="PackedScene" uid="uid://cl8k0xck7417y" path="res://Scenes/gui.tscn" id="7_5wyu1"]
-[ext_resource type="Script" uid="uid://gsfdv56476hw" path="res://addons/mqtt-node/mqtt-node.gd" id="8_0c07c"]
+[ext_resource type="Script" uid="uid://c6q8oftjnb7w5" path="res://Scenes/python_script_starter.gd" id="8_0c07c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o3qbn"]
 sky_top_color = Color(0.0002838953, 0.00042584294, 0.007860149, 1)
@@ -24,10 +24,14 @@ sky_material = SubResource("ProceduralSkyMaterial_o3qbn")
 [sub_resource type="Environment" id="Environment_8od7v"]
 background_mode = 2
 sky = SubResource("Sky_lc1oi")
-ambient_light_source = 2
+ambient_light_source = 3
 ambient_light_color = Color(0.15170373, 0.15170373, 0.24780053, 1)
-ambient_light_energy = 0.5
+ambient_light_energy = 0.15
 tonemap_mode = 2
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.75
+glow_bloom = 0.42
 fog_mode = 1
 fog_light_color = Color(0.09320182, 0.09320182, 0.12315822, 1)
 fog_density = 1.0
@@ -36,13 +40,10 @@ fog_depth_begin = 5.0
 fog_depth_end = 30.0
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.1
-volumetric_fog_albedo = Color(0.15170373, 0.1897483, 0.29337206, 1)
-volumetric_fog_emission_energy = 0.15
-volumetric_fog_gi_inject = 0.1
-volumetric_fog_length = 40.0
-volumetric_fog_detail_spread = 0.5
-volumetric_fog_ambient_inject = 3.0
-volumetric_fog_sky_affect = 0.0
+volumetric_fog_albedo = Color(0.3212448, 0.5398015, 0.71396303, 1)
+volumetric_fog_emission = Color(0.1408726, 0.15674132, 0.20178461, 1)
+volumetric_fog_emission_energy = 0.25
+volumetric_fog_sky_affect = 0.427
 volumetric_fog_temporal_reprojection_amount = 0.5
 
 [node name="Test" type="Node3D" unique_id=1852078308 node_paths=PackedStringArray("environment", "sun", "player", "maze", "monster", "arduinoReader", "GUI")]
@@ -54,8 +55,8 @@ maze = NodePath("Maze")
 monster = NodePath("MonsterRawrRawr")
 arduinoReader = NodePath("ArduinoReader")
 GUI = NodePath("GUI")
-brightness = 0.15
-ambient_light = 0.5
+brightness = 0.35
+ambient_light = 0.15
 heart_distance_mult = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=307656450]
@@ -63,14 +64,17 @@ environment = SubResource("Environment_8od7v")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=20241881]
 transform = Transform3D(-0.03126609, -0.8975486, -0.4398057, -0.46670407, -0.37599748, 0.80050814, -0.88386077, 0.2302879, -0.40713367, 0, 0, 0)
-light_color = Color(0.7977378, 0.85430586, 1, 1)
-light_energy = 0.15
+light_color = Color(0.6052815, 0.72925454, 0.8613781, 1)
+light_energy = 0.35
 light_indirect_energy = 0.1
+light_volumetric_fog_energy = 0.5
+light_angular_distance = 5.98
 shadow_enabled = true
 shadow_bias = 0.05
 
-[node name="Player" parent="." unique_id=1474919529 instance=ExtResource("1_ys1qc")]
+[node name="Player" parent="." unique_id=1474919529 node_paths=PackedStringArray("manager") instance=ExtResource("1_ys1qc")]
 transform = Transform3D(-0.99975437, 0, 0.022163874, 0, 1, 0, -0.022163874, 0, -0.99975437, 11.616816, 0, 10.769631)
+manager = NodePath("..")
 
 [node name="Maze" parent="." unique_id=520149343 instance=ExtResource("3_i3aeo")]
 ceiling_height = 7.0
@@ -81,9 +85,8 @@ manager = NodePath("..")
 showDebug = true
 
 [node name="MonsterRawrRawr" parent="." unique_id=982191000 node_paths=PackedStringArray("manager") instance=ExtResource("6_5wyu1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.82984, 1, 71.35387)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.612003, 1, 71.35387)
 manager = NodePath("..")
-baseWanderSpeed = 0.0
 
 [node name="GUI" parent="." unique_id=917991586 node_paths=PackedStringArray("arduino_reader") instance=ExtResource("7_5wyu1")]
 mouse_filter = 2
@@ -92,6 +95,5 @@ arduino_reader = NodePath("../ArduinoReader")
 [node name="MQTTClient" type="Node3D" parent="." unique_id=551885067]
 script = ExtResource("7_0c07c")
 
-[node name="MqttNode" type="Node" parent="." unique_id=1992662548]
+[node name="PythonScriptStarter" type="Node3D" parent="MQTTClient" unique_id=407472136]
 script = ExtResource("8_0c07c")
-metadata/_custom_type_script = "uid://gsfdv56476hw"

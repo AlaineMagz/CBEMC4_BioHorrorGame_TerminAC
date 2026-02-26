@@ -110,10 +110,10 @@ func determine_speed(type : String) -> float:
 	match type:
 		
 		"wander":
-			return baseWanderSpeed
+			return max(1, (baseWanderSpeed * manager.get_arduino_variables("ir")))
 		
 		"chase":
-			return baseChaseSpeed
+			return max(1, (baseChaseSpeed * manager.get_arduino_variables("ir")))
 		
 	
 	return 1.0
@@ -136,7 +136,6 @@ func move_agent(move_speed : float, delta : float) -> void:
 			global_transform.basis = global_transform.basis.slerp(target_transform.basis, rotation_speed * delta)
 	else:
 		if velocity.length() > 0.1:
-			var look_target = global_position - velocity # Note: This depends on how your model is oriented. 
 			var target_transform = global_transform.looking_at(global_position + velocity, Vector3.UP)
 			global_transform.basis = global_transform.basis.slerp(target_transform.basis, rotation_speed * delta)
 	

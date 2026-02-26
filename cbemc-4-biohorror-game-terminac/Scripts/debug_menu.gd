@@ -65,4 +65,4 @@ func _on_override_button_toggled(toggled_on: bool) -> void:
 
 func _on_h_slider_2_value_changed(value: float) -> void:
 	averageHeartRateOverride = value
-	average_heart_rate_label = average_heart_rate_text + str(value)
+	average_heart_rate_label.text = average_heart_rate_text + str(value)

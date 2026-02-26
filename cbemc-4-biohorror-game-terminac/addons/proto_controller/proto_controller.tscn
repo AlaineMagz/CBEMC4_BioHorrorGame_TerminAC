@@ -33,10 +33,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=326243871]
 
 [node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D" unique_id=1684862844]
-light_color = Color(1, 1, 0.9063318, 1)
-light_energy = 2.0
-light_volumetric_fog_energy = 0.8
+light_volumetric_fog_energy = 0.1
 shadow_enabled = true
 spot_range = 20.0
 spot_angle = 35.0
 script = ExtResource("2_wr06p")
+
+[node name="HideDetector" type="Area3D" parent="." unique_id=1891576345]
+
+[node name="Collider" type="CollisionShape3D" parent="HideDetector" unique_id=215147676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_iof21")
+
+[connection signal="area_entered" from="HideDetector" to="." method="_on_hide_detector_area_entered"]
+[connection signal="area_exited" from="HideDetector" to="." method="_on_hide_detector_area_exited"]

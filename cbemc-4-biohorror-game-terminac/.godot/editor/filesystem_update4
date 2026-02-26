@@ -1,3 +1,2 @@
 res://Scenes/test.tscn
-res://Scripts/mqtt_client.gd
-res://addons/mqtt/mqtt.gd
+res://Scenes/python_script_starter.gd

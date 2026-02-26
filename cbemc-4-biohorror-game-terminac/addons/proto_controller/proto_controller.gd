@@ -49,6 +49,9 @@ var look_rotation : Vector2
 var move_speed : float = 0.0
 var freeflying : bool = false
 
+@export_category("Nodes")
+@export var manager : Node3D
+var in_hiding_spot : bool = false
 var is_hiding : bool = false
 
 ## IMPORTANT REFERENCES
@@ -119,6 +122,12 @@ func _physics_process(delta: float) -> void:
 	
 	# Use velocity to actually move
 	move_and_slide()
+	
+	if !manager.get_arduino_variables("motion") && in_hiding_spot && manager.monster.current_state != manager.monster.State.CHASING:
+		is_hiding = true
+	else:
+		is_hiding = false
+	
 
 
 ## Rotate us to look around.
@@ -178,3 +187,12 @@ func check_input_mappings():
 	if can_freefly and not InputMap.has_action(input_freefly):
 		push_error("Freefly disabled. No InputAction found for input_freefly: " + input_freefly)
 		can_freefly = false
+
+
+func _on_hide_detector_area_entered(area: Area3D) -> void:
+	if area.name.contains("Hiding Spot"):
+		in_hiding_spot = true
+
+func _on_hide_detector_area_exited(area: Area3D) -> void:
+	if area.name.contains("Hiding Spot"):
+		in_hiding_spot = false
