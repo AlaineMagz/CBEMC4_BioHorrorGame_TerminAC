@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://db7tcehrvgikw" path="res://Scripts/GameSettingsManager.gd" id="1_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_ys1qc"]
+[ext_resource type="Script" uid="uid://bbvy7gi5c1ecw" path="res://Scenes/sun.gd" id="2_2cgwh"]
 [ext_resource type="PackedScene" uid="uid://bwcw26qm6fnjx" path="res://Scenes/maze.tscn" id="3_i3aeo"]
 [ext_resource type="PackedScene" uid="uid://bs3vubsvcnqf4" path="res://Scenes/arduino_reader.tscn" id="4_35xla"]
 [ext_resource type="PackedScene" uid="uid://ctptyxdabct6v" path="res://Scenes/monster_rawr_rawr.tscn" id="6_5wyu1"]
@@ -64,13 +65,14 @@ environment = SubResource("Environment_8od7v")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=20241881]
 transform = Transform3D(-0.03126609, -0.8975486, -0.4398057, -0.46670407, -0.37599748, 0.80050814, -0.88386077, 0.2302879, -0.40713367, 0, 0, 0)
-light_color = Color(0.6052815, 0.72925454, 0.8613781, 1)
+light_color = Color(0.6039216, 0.7294118, 0.8627451, 1)
 light_energy = 0.35
 light_indirect_energy = 0.1
 light_volumetric_fog_energy = 0.5
 light_angular_distance = 5.98
 shadow_enabled = true
 shadow_bias = 0.05
+script = ExtResource("2_2cgwh")
 
 [node name="Player" parent="." unique_id=1474919529 node_paths=PackedStringArray("manager") instance=ExtResource("1_ys1qc")]
 transform = Transform3D(-0.99975437, 0, 0.022163874, 0, 1, 0, -0.022163874, 0, -0.99975437, 11.616816, 0, 10.769631)
@@ -86,6 +88,18 @@ showDebug = true
 
 [node name="MonsterRawrRawr" parent="." unique_id=982191000 node_paths=PackedStringArray("manager") instance=ExtResource("6_5wyu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.612003, 1, 71.35387)
+manager = NodePath("..")
+
+[node name="MonsterRawrRawr2" parent="." unique_id=356952776 node_paths=PackedStringArray("manager") instance=ExtResource("6_5wyu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 115.89238, 1, 118.15425)
+manager = NodePath("..")
+
+[node name="MonsterRawrRawr3" parent="." unique_id=1035090101 node_paths=PackedStringArray("manager") instance=ExtResource("6_5wyu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104.9191, 1, 56.676254)
+manager = NodePath("..")
+
+[node name="MonsterRawrRawr4" parent="." unique_id=1639089456 node_paths=PackedStringArray("manager") instance=ExtResource("6_5wyu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.06157, 1, 29.685196)
 manager = NodePath("..")
 
 [node name="GUI" parent="." unique_id=917991586 node_paths=PackedStringArray("arduino_reader") instance=ExtResource("7_5wyu1")]

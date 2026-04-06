@@ -60,7 +60,7 @@ func get_arduino_variables(value):
 		if GUI.overrideSwitch:
 			return GUI.heartRateOverride / GUI.averageHeartRateOverride
 		else:
-			return arduinoReader.irValue / 1000
+			return arduinoReader.irValue / 100
 	
 	if value == "motion":
 		if GUI.overrideSwitch:
