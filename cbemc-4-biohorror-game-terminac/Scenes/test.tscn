@@ -47,14 +47,14 @@ volumetric_fog_emission_energy = 0.25
 volumetric_fog_sky_affect = 0.427
 volumetric_fog_temporal_reprojection_amount = 0.5
 
-[node name="Test" type="Node3D" unique_id=1852078308 node_paths=PackedStringArray("environment", "sun", "player", "maze", "monster", "arduinoReader", "GUI")]
+[node name="Test" type="Node3D" unique_id=1852078308 node_paths=PackedStringArray("environment", "sun", "player", "maze", "monster", "mqttClient", "GUI")]
 script = ExtResource("1_5wyu1")
 environment = NodePath("WorldEnvironment")
 sun = NodePath("Sun")
 player = NodePath("Player")
 maze = NodePath("Maze")
 monster = NodePath("MonsterRawrRawr")
-arduinoReader = NodePath("ArduinoReader")
+mqttClient = NodePath("MQTTClient")
 GUI = NodePath("GUI")
 brightness = 0.35
 ambient_light = 0.15
@@ -106,8 +106,9 @@ manager = NodePath("..")
 mouse_filter = 2
 arduino_reader = NodePath("../ArduinoReader")
 
-[node name="MQTTClient" type="Node3D" parent="." unique_id=551885067]
+[node name="MQTTClient" type="Node3D" parent="." unique_id=551885067 node_paths=PackedStringArray("GUI")]
 script = ExtResource("7_0c07c")
+GUI = NodePath("../GUI")
 
 [node name="PythonScriptStarter" type="Node3D" parent="MQTTClient" unique_id=407472136]
 script = ExtResource("8_0c07c")

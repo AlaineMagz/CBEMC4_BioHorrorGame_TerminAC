@@ -15,7 +15,12 @@ ENDPOINT = "ak6j5nthu348m-ats.iot.us-east-1.amazonaws.com"
 PATH_TO_CERT = get_path("certificate.pem.crt")
 PATH_TO_KEY = get_path("private.pem.key")
 PATH_TO_ROOT = get_path("AmazonRootCA1.pem")
-TOPIC = "sensors/data"
+TOPIC = "sensors/data/#"
+
+if len(sys.argv) > 1:
+    DEVICE_ID = sys.argv[1]
+else:
+    DEVICE_ID = "John Error"
 
 # GODOT CONFIG
 GODOT_IP = "127.0.0.1" # Localhost
@@ -25,8 +30,9 @@ udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 def on_message_received(topic, payload, **kwargs):
     # Forward the raw JSON string directly to Godot
     message = payload.decode('utf-8')
-    print(f"Relaying to Godot: {message}")
-    udp_socket.sendto(message.encode(), (GODOT_IP, GODOT_PORT))
+    if json.loads(message)['deviceID'] == DEVICE_ID:
+        print(f"Relaying to Godot: {message}")
+        udp_socket.sendto(message.encode(), (GODOT_IP, GODOT_PORT))
 
 # AWS Connection Logic
 mqtt_connection = mqtt_connection_builder.mtls_from_path(
@@ -40,10 +46,10 @@ mqtt_connection = mqtt_connection_builder.mtls_from_path(
 )
 
 connect_future = mqtt_connection.connect()
-connect_future.result()
+print(connect_future.result())
 
 mqtt_connection.subscribe(topic=TOPIC, qos=mqtt.QoS.AT_LEAST_ONCE, callback=on_message_received)
 
-print(f"Relay Active. Listening to {TOPIC} and sending to port {GODOT_PORT}...")
+print(f"Relay Active. Connected to {DEVICE_ID}, listening to {TOPIC}, and sending to port {GODOT_PORT}...")
 import threading
 threading.Event().wait()

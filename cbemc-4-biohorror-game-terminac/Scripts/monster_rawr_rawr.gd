@@ -9,6 +9,8 @@ extends CharacterBody3D
 @export_category("Movement Stats")
 @export var baseWanderSpeed : float = 5.0
 @export var baseChaseSpeed : float = 10.0
+@export var minimumSpeedMult : float = 0.5
+@export var maximumSpeedMult : float = 2.0
 @export var rotation_speed : float = 8.0
 @export var acceleration : float = 10.0
 
@@ -110,10 +112,10 @@ func determine_speed(type : String) -> float:
 	match type:
 		
 		"wander":
-			return max(1, (baseWanderSpeed * manager.get_arduino_variables("ir")))
+			return min(baseWanderSpeed * maximumSpeedMult, max(baseWanderSpeed * minimumSpeedMult, (baseWanderSpeed * manager.get_arduino_variables("ir"))))
 		
 		"chase":
-			return max(1, (baseChaseSpeed * manager.get_arduino_variables("ir")))
+			return min(baseChaseSpeed * maximumSpeedMult, max(baseChaseSpeed * minimumSpeedMult, (baseChaseSpeed * manager.get_arduino_variables("ir"))))
 		
 	
 	return 1.0

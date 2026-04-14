@@ -7,7 +7,7 @@ extends Node3D
 @export var player : CharacterBody3D
 @export var maze : NavigationRegion3D
 @export var monster : CharacterBody3D
-@export var arduinoReader : Node3D
+@export var mqttClient : Node3D
 @export var GUI : Control
 
 @export_tool_button("Reload Scene")
@@ -28,7 +28,7 @@ func _ready() -> void:
 	player = $Player
 	maze = $Maze
 	monster = $MonsterRawrRawr
-	arduinoReader = $ArduinoReader
+	mqttClient = $MQTTClient
 	GUI = $GUI
 	
 	reload_variables()
@@ -38,10 +38,6 @@ func _process(_delta: float) -> void:
 	
 	if Engine.is_editor_hint():
 		return
-	
-	#Fear Variables;
-	if GUI.overrideSwitch:
-		print("AHHH OVERRIDE SCARY")
 	
 
 func reload_variables() -> void:
@@ -60,13 +56,13 @@ func get_arduino_variables(value):
 		if GUI.overrideSwitch:
 			return GUI.heartRateOverride / GUI.averageHeartRateOverride
 		else:
-			return arduinoReader.irValue / 100
+			return mqttClient.heartRate / mqttClient.averageHeartRate
 	
 	if value == "motion":
 		if GUI.overrideSwitch:
 			return GUI.motionDetectOverride
 		else: 
-			return arduinoReader.isMotion
+			return mqttClient.motionDetected
 	
 
 func death_screen() -> void:

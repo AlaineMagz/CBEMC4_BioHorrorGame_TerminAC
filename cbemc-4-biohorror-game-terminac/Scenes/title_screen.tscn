@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://fku807vsrgoj"]
+
+[ext_resource type="Script" uid="uid://dgms2xshpcgm3" path="res://Scenes/start_game.gd" id="1_klylv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_62dcu"]
+font_size = 32
+
+[node name="TitleScreen" type="Control" unique_id=133280363]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="." unique_id=1410903471]
+layout_mode = 0
+offset_left = 228.0
+offset_top = 264.0
+offset_right = 885.0
+offset_bottom = 309.0
+text = "Please put da device id in the box below :D"
+label_settings = SubResource("LabelSettings_62dcu")
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=2012676989]
+layout_mode = 0
+offset_left = 319.0
+offset_top = 362.0
+offset_right = 769.0
+offset_bottom = 443.0
+placeholder_text = "puta da texting :)"
+
+[node name="Button" type="Button" parent="." unique_id=49143643 node_paths=PackedStringArray("text_box")]
+layout_mode = 0
+offset_left = 417.0
+offset_top = 512.0
+offset_right = 639.0
+offset_bottom = 561.0
+text = "start buh on"
+script = ExtResource("1_klylv")
+text_box = NodePath("../TextEdit")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
